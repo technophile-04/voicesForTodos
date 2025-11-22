@@ -66,6 +66,33 @@ Run smart contract test with `yarn hardhat:test`
 - Edit your frontend homepage at `packages/nextjs/app/page.tsx`. For guidance on [routing](https://nextjs.org/docs/app/building-your-application/routing/defining-routes) and configuring [pages/layouts](https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts) checkout the Next.js documentation.
 - Edit your deployment scripts in `packages/hardhat/deploy`
 
+## 💬 Message Vault - Interactive Grid Mini App
+
+This project includes a **Message Vault** - an on-chain interactive grid where users can buy cells and leave messages!
+
+### Features
+
+- **10x10 Grid (100 cells)** - All stored on-chain via smart contract
+- **Buy & Claim** - Purchase any empty cell for 0.001 ETH minimum
+- **Competitive Overwriting** - Overwrite others' messages by paying 10% more
+- **Price Escalation** - The more you pay, the harder it is for others to overwrite your message
+- **Vault Storage** - All ETH is locked in the contract vault
+- **Farcaster Integration** - Share your claims directly to Farcaster
+
+### Smart Contract
+
+The `MessageVault.sol` contract (`packages/hardhat/contracts/MessageVault.sol`) provides:
+- `buyCell(cellId, message)` - Buy or overwrite a grid cell
+- `updateMessage(cellId, newMessage)` - Update your own cell for free
+- `getAllCells()` - Get all grid data
+- `getMinimumPrice(cellId)` - Calculate minimum price to buy a cell
+
+### Try it
+
+1. Deploy the contract: `yarn deploy`
+2. Visit the main app: `http://localhost:3000`
+3. Or use as Farcaster Mini App: `http://localhost:3000/miniapp`
+
 ## 🚀 Miniapp Functionality
 
 Miniapp extension adds functionality to easily create a Farcaster/Base MiniApp. It will take care of manifest file generation at .well-known/farcatser.json as well as generation of the metatags required for miniapp rendering in Farcaster/Base feed.
