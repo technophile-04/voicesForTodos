@@ -73,10 +73,10 @@ This project includes a **Message Vault** - an on-chain interactive grid where u
 ### Features
 
 - **10x10 Grid (100 cells)** - All stored on-chain via smart contract
-- **Buy & Claim** - Purchase any empty cell for 0.001 ETH minimum
+- **Buy & Claim** - Purchase any empty cell for 0.001 CELO minimum
 - **Competitive Overwriting** - Overwrite others' messages by paying 10% more
 - **Price Escalation** - The more you pay, the harder it is for others to overwrite your message
-- **Vault Storage** - All ETH is locked in the contract vault
+- **Vault Storage** - All CELO is locked in the contract vault
 - **Farcaster Integration** - Share your claims directly to Farcaster
 
 ### Smart Contract
