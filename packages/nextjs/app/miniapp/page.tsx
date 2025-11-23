@@ -113,6 +113,7 @@ const MiniappPage: NextPage = () => {
                   <div className="avatar">
                     <div className="w-8 h-8 rounded-full">
                       {farcasterUser.pfpUrl && (
+                        // eslint-disable-next-line @next/next/no-img-element
                         <img src={farcasterUser.pfpUrl} alt={farcasterUser.username || "User"} />
                       )}
                     </div>
