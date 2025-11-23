@@ -91,10 +91,18 @@ This project includes a **Message Vault** - an on-chain interactive grid where u
 ### Smart Contract
 
 The `MessageVault.sol` contract (`packages/hardhat/contracts/MessageVault.sol`) provides:
-- `buyCell(cellId, message)` - Buy or overwrite a grid cell
-- `updateMessage(cellId, newMessage)` - Update your own cell for free
+
+**User Functions:**
+- `buyCell(cellId, message)` - Buy or overwrite a grid cell with ONE character
+- `updateMessage(cellId, newMessage)` - Update your own cell character for free
 - `getAllCells()` - Get all grid data
 - `getMinimumPrice(cellId)` - Calculate minimum price to buy a cell
+- `getVaultBalance()` - Check total CELO locked in vault
+
+**Owner Functions (Contract Deployer Only):**
+- `withdraw(amount, to)` - Withdraw specific amount to an address
+- `withdrawAll(to)` - Withdraw all funds to an address
+- `transferOwnership(newOwner)` - Transfer contract ownership
 
 ### Try it
 

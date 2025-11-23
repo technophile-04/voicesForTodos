@@ -8,6 +8,9 @@ pragma solidity ^0.8.0;
  * All funds are stored in the contract vault
  */
 contract MessageVault {
+    // Contract owner
+    address public contractOwner;
+
     struct GridCell {
         string message;
         address owner;
@@ -45,15 +48,31 @@ contract MessageVault {
 
     event MessageUpdated(uint256 indexed cellId, address indexed owner, string newMessage, uint256 timestamp);
 
+    event Withdrawal(address indexed to, uint256 amount, uint256 timestamp);
+
     /**
-     * @dev Buy or overwrite a grid cell with a message
+     * @dev Constructor sets the contract deployer as owner
+     */
+    constructor() {
+        contractOwner = msg.sender;
+    }
+
+    /**
+     * @dev Modifier to restrict functions to owner only
+     */
+    modifier onlyOwner() {
+        require(msg.sender == contractOwner, "Only owner can call this function");
+        _;
+    }
+
+    /**
+     * @dev Buy or overwrite a grid cell with a single character
      * @param cellId The ID of the cell (0 to TOTAL_CELLS-1)
-     * @param message The message to display in the cell
+     * @param message The single character to display in the cell (uppercase)
      */
     function buyCell(uint256 cellId, string memory message) external payable {
         require(cellId < TOTAL_CELLS, "Invalid cell ID");
-        require(bytes(message).length > 0, "Message cannot be empty");
-        require(bytes(message).length <= 100, "Message too long (max 100 chars)");
+        require(bytes(message).length == 1, "Exactly 1 character required per cell");
 
         GridCell storage cell = grid[cellId];
         uint256 currentPrice = cell.price;
@@ -82,14 +101,13 @@ contract MessageVault {
     }
 
     /**
-     * @dev Update message of a cell you own (free)
+     * @dev Update character of a cell you own (free)
      * @param cellId The ID of the cell
-     * @param newMessage The new message
+     * @param newMessage The new single character
      */
     function updateMessage(uint256 cellId, string memory newMessage) external {
         require(cellId < TOTAL_CELLS, "Invalid cell ID");
-        require(bytes(newMessage).length > 0, "Message cannot be empty");
-        require(bytes(newMessage).length <= 100, "Message too long (max 100 chars)");
+        require(bytes(newMessage).length == 1, "Exactly 1 character required per cell");
 
         GridCell storage cell = grid[cellId];
         require(cell.owner == msg.sender, "You don't own this cell");
@@ -143,6 +161,46 @@ contract MessageVault {
      */
     function getVaultBalance() external view returns (uint256) {
         return address(this).balance;
+    }
+
+    /**
+     * @dev Withdraw funds from the vault (owner only)
+     * @param amount The amount to withdraw (in wei)
+     * @param to The address to send funds to
+     */
+    function withdraw(uint256 amount, address payable to) external onlyOwner {
+        require(to != address(0), "Cannot withdraw to zero address");
+        require(amount > 0, "Amount must be greater than 0");
+        require(address(this).balance >= amount, "Insufficient balance");
+
+        (bool success,) = to.call{value: amount}("");
+        require(success, "Transfer failed");
+
+        emit Withdrawal(to, amount, block.timestamp);
+    }
+
+    /**
+     * @dev Withdraw all funds from the vault (owner only)
+     * @param to The address to send funds to
+     */
+    function withdrawAll(address payable to) external onlyOwner {
+        require(to != address(0), "Cannot withdraw to zero address");
+        uint256 balance = address(this).balance;
+        require(balance > 0, "No funds to withdraw");
+
+        (bool success,) = to.call{value: balance}("");
+        require(success, "Transfer failed");
+
+        emit Withdrawal(to, balance, block.timestamp);
+    }
+
+    /**
+     * @dev Transfer ownership to a new address
+     * @param newOwner The address of the new owner
+     */
+    function transferOwnership(address newOwner) external onlyOwner {
+        require(newOwner != address(0), "New owner cannot be zero address");
+        contractOwner = newOwner;
     }
 
     /**
