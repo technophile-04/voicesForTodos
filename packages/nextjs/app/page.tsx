@@ -17,6 +17,7 @@ const Home: NextPage = () => {
     contractName: "MessageVault",
     functionName: "getAllCells",
   });
+  const claimedCells = allCells?.filter(cell => cell && cell.message && cell.message.length > 0).length ?? 0;
 
   // Read vault stats
   const { data: vaultBalance } = useScaffoldReadContract({
@@ -59,6 +60,14 @@ const Home: NextPage = () => {
       setBidAmount("0.001");
     }
   };
+  const handleCreateNewCell = () => {
+    const firstOpenIndex = allCells?.findIndex(cell => !cell || !cell.message || cell.message.length === 0) ?? 0;
+    handleCellClick(firstOpenIndex === -1 ? 0 : firstOpenIndex);
+  };
+  const scrollToGrid = () => {
+    const el = document.getElementById("vault-grid");
+    el?.scrollIntoView({ behavior: "smooth" });
+  };
 
   // Handle buy cell
   const handleBuyCell = async () => {
@@ -84,86 +93,155 @@ const Home: NextPage = () => {
   };
 
   return (
-    <>
-      <div className="flex items-center flex-col grow pt-10 pb-10">
-        <div className="px-5 w-full max-w-7xl">
-          <div className="flex flex-col gap-6">
-            {/* Header */}
-            <div className="text-center">
-              <h1 className="text-4xl font-bold mb-3">💬 Message Vault Grid</h1>
-              <p className="text-lg opacity-70 mb-6">Buy a spot on the grid and leave your message!</p>
-              <div className="mt-4 flex justify-center gap-4 text-sm flex-wrap">
-                <div className="badge badge-lg badge-primary gap-2 shadow-md">
-                  <span>💰</span>
-                  <span>Vault Balance: {vaultBalance ? formatEther(vaultBalance) : "0"} CELO</span>
+    <div className="celo-page relative overflow-hidden">
+      <div className="celo-sheen" />
+      <div className="celo-blur top-[-10%] left-[-10%] w-80 h-80 bg-primary/30" />
+      <div className="celo-blur bottom-[-5%] right-[-10%] w-96 h-96 bg-secondary/25" />
+
+      <div className="relative z-10 flex items-center flex-col grow pt-12 pb-14">
+        <div className="px-5 w-full max-w-6xl flex flex-col gap-10">
+          {/* Header */}
+          <div className="celo-panel rounded-3xl p-8 md:p-10 relative overflow-hidden">
+            <div className="absolute inset-0 opacity-60 pointer-events-none">
+              <div className="absolute -left-10 -top-20 w-56 h-56 rounded-full bg-primary blur-3xl" />
+              <div className="absolute -right-10 -bottom-20 w-56 h-56 rounded-full bg-secondary blur-3xl" />
+            </div>
+            <div className="relative flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+              <div className="max-w-2xl space-y-3">
+                <p className="text-xs uppercase tracking-[0.3em] text-primary/80">Celo Onchain Canvas</p>
+                <h1 className="text-4xl md:text-5xl font-bold text-base-content">Message Vault Grid</h1>
+                <p className="text-base md:text-lg text-base-content/70">
+                  Claim a tile, drop a message, and lock your story into the Celo network. Each overwrite requires a 10%
+                  higher bid, making every square more valuable over time.
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  <div className="badge badge-lg badge-primary gap-2 shadow-md">
+                    <span>💰</span>
+                    <span>Vault Balance: {vaultBalance ? formatEther(vaultBalance) : "0"} CELO</span>
+                  </div>
+                  <div className="badge badge-lg badge-secondary gap-2 shadow-md">
+                    <span>📊</span>
+                    <span>Total Value: {totalVaultValue ? formatEther(totalVaultValue) : "0"} CELO</span>
+                  </div>
+                  <div className="badge badge-lg badge-accent gap-2 shadow-md">
+                    <span>🟩</span>
+                    <span>Claimed: {claimedCells}/100</span>
+                  </div>
                 </div>
-                <div className="badge badge-lg badge-secondary gap-2 shadow-md">
-                  <span>📊</span>
-                  <span>Total Value: {totalVaultValue ? formatEther(totalVaultValue) : "0"} CELO</span>
+              </div>
+              <div className="w-full md:w-auto flex flex-col gap-3 md:text-right">
+                <div className="stats shadow-lg bg-base-100/70 border border-base-300">
+                  <div className="stat">
+                    <div className="stat-title">Live on Celo</div>
+                    <div className="stat-value text-primary">CELO</div>
+                    <div className="stat-desc">Fast, secure, regenerative finance</div>
+                  </div>
+                </div>
+                <div className="flex gap-3 justify-end">
+                  <button className="btn btn-primary btn-wide shadow-lg" onClick={handleCreateNewCell}>
+                    Mint a tile
+                  </button>
+                  <button className="btn btn-ghost border border-base-300" onClick={scrollToGrid}>
+                    View activity
+                  </button>
                 </div>
               </div>
             </div>
+          </div>
 
-            {/* Grid */}
-            <div className="card bg-base-200 shadow-xl">
-              <div className="card-body">
-                <div className="grid grid-cols-10 gap-2">
-                  {Array.from({ length: 100 }).map((_, index) => {
-                    const cell = allCells?.[index];
-                    const hasMessage = cell && cell.message && cell.message.length > 0;
-                    const price = cell?.price || BigInt(0);
+          {/* Grid */}
+          <div id="vault-grid" className="celo-panel rounded-3xl p-6 md:p-8 relative overflow-hidden">
+            <div className="absolute inset-0 opacity-40 pointer-events-none">
+              <div className="absolute -left-16 top-1/4 h-48 w-48 bg-primary blur-3xl" />
+              <div className="absolute right-0 bottom-0 h-48 w-48 bg-secondary blur-3xl" />
+            </div>
+            <div className="relative flex flex-col gap-4">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.2em] text-base-content/60">The Grid</p>
+                  <h2 className="text-2xl font-semibold text-base-content">100 onchain squares</h2>
+                </div>
+                <div className="flex gap-2 flex-wrap text-xs">
+                  <span className="px-3 py-1 rounded-full border border-base-300 bg-base-100/70">
+                    <span className="inline-block w-2 h-2 rounded-full bg-primary mr-2" />
+                    Claimed
+                  </span>
+                  <span className="px-3 py-1 rounded-full border border-base-300 bg-base-100/70">
+                    <span className="inline-block w-2 h-2 rounded-full bg-base-300 mr-2" />
+                    Available
+                  </span>
+                </div>
+              </div>
+              <div className="grid grid-cols-5 sm:grid-cols-8 md:grid-cols-10 gap-2">
+                {Array.from({ length: 100 }).map((_, index) => {
+                  const cell = allCells?.[index];
+                  const hasMessage = cell && cell.message && cell.message.length > 0;
+                  const price = cell?.price || BigInt(0);
 
-                    return (
-                      <div
-                        key={index}
-                        onClick={() => handleCellClick(index)}
-                        className={`
-                          aspect-square relative cursor-pointer
-                          border-2 rounded-lg p-2 transition-all duration-200
-                          hover:scale-105 hover:shadow-xl hover:z-10
-                          active:scale-95
-                          ${hasMessage ? "border-primary bg-primary/10 hover:bg-primary/20" : "border-base-300 bg-base-100 hover:bg-base-200"}
-                        `}
-                        title={`Cell ${index}${hasMessage ? `\nMessage: ${cell.message}\nPrice: ${formatEther(price)} CELO` : "\nEmpty - Click to claim!"}`}
-                      >
-                        {/* Cell content */}
-                        <div className="flex flex-col h-full justify-between text-xs">
-                          {hasMessage ? (
-                            <>
-                              <div className="font-mono text-[10px] truncate font-bold">{cell.message}</div>
-                              <div className="text-[8px] opacity-60 truncate">{formatEther(price)} CELO</div>
-                            </>
-                          ) : (
-                            <div className="text-center text-[10px] opacity-40 font-bold">#{index}</div>
-                          )}
+                  return (
+                    <div
+                      key={index}
+                      onClick={() => handleCellClick(index)}
+                      className={`
+                        celo-grid-tile aspect-square relative cursor-pointer
+                        rounded-xl p-2 transition-all duration-200
+                        hover:-translate-y-1 hover:shadow-xl hover:z-10
+                        active:scale-95 backdrop-blur
+                        ${hasMessage ? "border-primary/60 bg-primary/15" : "bg-base-100/70"}
+                      `}
+                      title={`Cell ${index}${hasMessage ? `\nMessage: ${cell.message}\nPrice: ${formatEther(price)} CELO` : "\nEmpty - Click to claim!"}`}
+                    >
+                      <div className="flex flex-col h-full justify-between text-[11px]">
+                        <div className="flex items-start justify-between gap-1">
+                          <span className="font-semibold text-base-content/60">#{index}</span>
+                          {hasMessage && <span className="badge badge-ghost badge-xs">Owned</span>}
                         </div>
+                        {hasMessage ? (
+                          <div className="space-y-1">
+                            <div className="font-mono text-[10px] truncate font-semibold text-base-content">
+                              {cell.message}
+                            </div>
+                            <div className="text-[9px] text-base-content/60 truncate">{formatEther(price)} CELO</div>
+                          </div>
+                        ) : (
+                          <div className="text-center text-[10px] opacity-50 font-semibold">Tap to claim</div>
+                        )}
                       </div>
-                    );
-                  })}
-                </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
+          </div>
 
-            {/* Instructions */}
-            <div className="alert shadow-md">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                className="stroke-current shrink-0 w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                ></path>
-              </svg>
-              <span>
-                <strong>How it works:</strong> Click any cell to buy it with your message. To overwrite someone
-                else&apos;s message, you must pay at least 10% more than they did. The higher the price, the harder it
-                is to overwrite!
-              </span>
+          {/* How it works */}
+          <div className="grid md:grid-cols-3 gap-4">
+            <div className="card bg-base-100/70 border border-base-300 shadow-lg">
+              <div className="card-body">
+                <h3 className="card-title text-base-content">Claim your space</h3>
+                <p className="text-base-content/70">
+                  Tap any tile, write your message, and set a bid in CELO. The higher the bid, the harder it is to be
+                  overwritten.
+                </p>
+              </div>
+            </div>
+            <div className="card bg-base-100/70 border border-base-300 shadow-lg">
+              <div className="card-body">
+                <h3 className="card-title text-base-content">Onchain permanence</h3>
+                <p className="text-base-content/70">
+                  Messages live on the Message Vault contract. Overwrites require a minimum 10% premium over the
+                  previous price.
+                </p>
+              </div>
+            </div>
+            <div className="card bg-base-100/70 border border-base-300 shadow-lg">
+              <div className="card-body">
+                <h3 className="card-title text-base-content">Built for Celo</h3>
+                <p className="text-base-content/70">
+                  Low-fee, carbon-negative by design. Showcase your idea with the Celo community and watch the grid
+                  evolve.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -260,7 +338,7 @@ const Home: NextPage = () => {
           <div className="modal-backdrop" onClick={() => setIsModalOpen(false)}></div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
