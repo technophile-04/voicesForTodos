@@ -24,7 +24,7 @@ contract MessageVault {
     uint256 public constant MIN_PRICE_INCREMENT = 110; // 110% = 10% increase
     uint256 public constant PRICE_DENOMINATOR = 100;
 
-    // Minimum initial price (0.001 ETH)
+    // Minimum initial price (0.001 CELO)
     uint256 public constant MIN_INITIAL_PRICE = 0.001 ether;
 
     // Grid storage: cellId => GridCell
@@ -139,7 +139,7 @@ contract MessageVault {
 
     /**
      * @dev Get total vault balance
-     * @return The total ETH stored in the vault
+     * @return The total CELO stored in the vault
      */
     function getVaultBalance() external view returns (uint256) {
         return address(this).balance;

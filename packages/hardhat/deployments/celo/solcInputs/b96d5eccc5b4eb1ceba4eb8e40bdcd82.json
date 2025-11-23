@@ -1,0 +1,36 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "contracts/MessageVault.sol": {
+      "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\n/**\n * @title MessageVault\n * @dev A contract where users can buy grid cells with messages\n * Each cell can be overwritten by paying more than the previous price\n * All funds are stored in the contract vault\n */\ncontract MessageVault {\n    struct GridCell {\n        string message;\n        address owner;\n        uint256 price;\n        uint256 timestamp;\n    }\n\n    // Grid dimensions\n    uint256 public constant GRID_WIDTH = 10;\n    uint256 public constant GRID_HEIGHT = 10;\n    uint256 public constant TOTAL_CELLS = GRID_WIDTH * GRID_HEIGHT;\n\n    // Minimum price increment (10% more than current price)\n    uint256 public constant MIN_PRICE_INCREMENT = 110; // 110% = 10% increase\n    uint256 public constant PRICE_DENOMINATOR = 100;\n\n    // Minimum initial price (0.001 ETH)\n    uint256 public constant MIN_INITIAL_PRICE = 0.001 ether;\n\n    // Grid storage: cellId => GridCell\n    mapping(uint256 => GridCell) public grid;\n\n    // Total value locked in vault\n    uint256 public totalVaultValue;\n\n    // Events\n    event CellPurchased(\n        uint256 indexed cellId,\n        address indexed buyer,\n        address indexed previousOwner,\n        string message,\n        uint256 price,\n        uint256 timestamp\n    );\n\n    event MessageUpdated(uint256 indexed cellId, address indexed owner, string newMessage, uint256 timestamp);\n\n    /**\n     * @dev Buy or overwrite a grid cell with a message\n     * @param cellId The ID of the cell (0 to TOTAL_CELLS-1)\n     * @param message The message to display in the cell\n     */\n    function buyCell(uint256 cellId, string memory message) external payable {\n        require(cellId < TOTAL_CELLS, \"Invalid cell ID\");\n        require(bytes(message).length > 0, \"Message cannot be empty\");\n        require(bytes(message).length <= 100, \"Message too long (max 100 chars)\");\n\n        GridCell storage cell = grid[cellId];\n        uint256 currentPrice = cell.price;\n\n        if (currentPrice == 0) {\n            // First purchase of this cell\n            require(msg.value >= MIN_INITIAL_PRICE, \"Price too low for initial purchase\");\n        } else {\n            // Cell already owned, must pay more\n            uint256 minPrice = (currentPrice * MIN_PRICE_INCREMENT) / PRICE_DENOMINATOR;\n            require(msg.value >= minPrice, \"Must pay at least 10% more than current price\");\n        }\n\n        address previousOwner = cell.owner;\n\n        // Update cell\n        cell.message = message;\n        cell.owner = msg.sender;\n        cell.price = msg.value;\n        cell.timestamp = block.timestamp;\n\n        // Add to vault\n        totalVaultValue += msg.value;\n\n        emit CellPurchased(cellId, msg.sender, previousOwner, message, msg.value, block.timestamp);\n    }\n\n    /**\n     * @dev Update message of a cell you own (free)\n     * @param cellId The ID of the cell\n     * @param newMessage The new message\n     */\n    function updateMessage(uint256 cellId, string memory newMessage) external {\n        require(cellId < TOTAL_CELLS, \"Invalid cell ID\");\n        require(bytes(newMessage).length > 0, \"Message cannot be empty\");\n        require(bytes(newMessage).length <= 100, \"Message too long (max 100 chars)\");\n\n        GridCell storage cell = grid[cellId];\n        require(cell.owner == msg.sender, \"You don't own this cell\");\n\n        cell.message = newMessage;\n        cell.timestamp = block.timestamp;\n\n        emit MessageUpdated(cellId, msg.sender, newMessage, block.timestamp);\n    }\n\n    /**\n     * @dev Get all cell data for the entire grid\n     * @return An array of all grid cells\n     */\n    function getAllCells() external view returns (GridCell[] memory) {\n        GridCell[] memory cells = new GridCell[](TOTAL_CELLS);\n        for (uint256 i = 0; i < TOTAL_CELLS; i++) {\n            cells[i] = grid[i];\n        }\n        return cells;\n    }\n\n    /**\n     * @dev Get cell data\n     * @param cellId The ID of the cell\n     * @return The cell data\n     */\n    function getCell(uint256 cellId) external view returns (GridCell memory) {\n        require(cellId < TOTAL_CELLS, \"Invalid cell ID\");\n        return grid[cellId];\n    }\n\n    /**\n     * @dev Calculate minimum price to buy a cell\n     * @param cellId The ID of the cell\n     * @return The minimum price required\n     */\n    function getMinimumPrice(uint256 cellId) external view returns (uint256) {\n        require(cellId < TOTAL_CELLS, \"Invalid cell ID\");\n\n        GridCell storage cell = grid[cellId];\n        if (cell.price == 0) {\n            return MIN_INITIAL_PRICE;\n        }\n        return (cell.price * MIN_PRICE_INCREMENT) / PRICE_DENOMINATOR;\n    }\n\n    /**\n     * @dev Get total vault balance\n     * @return The total ETH stored in the vault\n     */\n    function getVaultBalance() external view returns (uint256) {\n        return address(this).balance;\n    }\n\n    /**\n     * @dev Convert x,y coordinates to cell ID\n     * @param x The x coordinate (0 to GRID_WIDTH-1)\n     * @param y The y coordinate (0 to GRID_HEIGHT-1)\n     * @return The cell ID\n     */\n    function coordinatesToCellId(uint256 x, uint256 y) public pure returns (uint256) {\n        require(x < GRID_WIDTH, \"Invalid x coordinate\");\n        require(y < GRID_HEIGHT, \"Invalid y coordinate\");\n        return y * GRID_WIDTH + x;\n    }\n\n    /**\n     * @dev Convert cell ID to x,y coordinates\n     * @param cellId The cell ID\n     * @return x and y coordinates\n     */\n    function cellIdToCoordinates(uint256 cellId) public pure returns (uint256 x, uint256 y) {\n        require(cellId < TOTAL_CELLS, \"Invalid cell ID\");\n        x = cellId % GRID_WIDTH;\n        y = cellId / GRID_WIDTH;\n    }\n}\n"
+    }
+  },
+  "settings": {
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "evmVersion": "paris",
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode",
+          "evm.deployedBytecode",
+          "evm.methodIdentifiers",
+          "metadata",
+          "devdoc",
+          "userdoc",
+          "storageLayout",
+          "evm.gasEstimates"
+        ],
+        "": [
+          "ast"
+        ]
+      }
+    },
+    "metadata": {
+      "useLiteralContent": true
+    }
+  }
+}

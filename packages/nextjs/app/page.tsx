@@ -94,10 +94,10 @@ const Home: NextPage = () => {
               <p className="text-lg opacity-70">Buy a spot on the grid and leave your message!</p>
               <div className="mt-4 flex justify-center gap-6 text-sm">
                 <div className="badge badge-lg badge-primary">
-                  💰 Vault Balance: {vaultBalance ? formatEther(vaultBalance) : "0"} ETH
+                  💰 Vault Balance: {vaultBalance ? formatEther(vaultBalance) : "0"} CELO
                 </div>
                 <div className="badge badge-lg badge-secondary">
-                  📊 Total Value: {totalVaultValue ? formatEther(totalVaultValue) : "0"} ETH
+                  📊 Total Value: {totalVaultValue ? formatEther(totalVaultValue) : "0"} CELO
                 </div>
               </div>
             </div>
@@ -120,14 +120,14 @@ const Home: NextPage = () => {
                           border-2 rounded-lg p-2 transition-all hover:scale-105 hover:shadow-lg
                           ${hasMessage ? "border-primary bg-primary/10" : "border-base-300 bg-base-100"}
                         `}
-                        title={`Cell ${index}${hasMessage ? `\nMessage: ${cell.message}\nPrice: ${formatEther(price)} ETH` : "\nEmpty - Click to claim!"}`}
+                        title={`Cell ${index}${hasMessage ? `\nMessage: ${cell.message}\nPrice: ${formatEther(price)} CELO` : "\nEmpty - Click to claim!"}`}
                       >
                         {/* Cell content */}
                         <div className="flex flex-col h-full justify-between text-xs">
                           {hasMessage ? (
                             <>
                               <div className="font-mono text-[10px] truncate font-bold">{cell.message}</div>
-                              <div className="text-[8px] opacity-60 truncate">{formatEther(price)} ETH</div>
+                              <div className="text-[8px] opacity-60 truncate">{formatEther(price)} CELO</div>
                             </>
                           ) : (
                             <div className="text-center text-[10px] opacity-40 font-bold">#{index}</div>
@@ -180,7 +180,7 @@ const Home: NextPage = () => {
                 <p className="text-sm font-bold mb-2">Current Message:</p>
                 <p className="text-lg mb-2">&quot;{allCells[selectedCell].message}&quot;</p>
                 <p className="text-sm opacity-70 mb-1">
-                  Current Price: {formatEther(allCells[selectedCell].price)} ETH
+                  Current Price: {formatEther(allCells[selectedCell].price)} CELO
                 </p>
                 <div className="text-sm opacity-70">
                   Owner: <Address address={allCells[selectedCell].owner} />
@@ -205,9 +205,9 @@ const Home: NextPage = () => {
 
               <div>
                 <label className="label">
-                  <span className="label-text font-bold">Your Bid (ETH)</span>
+                  <span className="label-text font-bold">Your Bid (CELO)</span>
                   {minimumPrice && (
-                    <span className="label-text-alt text-warning">Min: {formatEther(minimumPrice)} ETH</span>
+                    <span className="label-text-alt text-warning">Min: {formatEther(minimumPrice)} CELO</span>
                   )}
                 </label>
                 <input
@@ -245,7 +245,7 @@ const Home: NextPage = () => {
                     Buying...
                   </>
                 ) : (
-                  <>Buy Cell for {bidAmount} ETH</>
+                  <>Buy Cell for {bidAmount} CELO</>
                 )}
               </button>
             </div>

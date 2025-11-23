@@ -1,0 +1,577 @@
+{
+  "address": "0x1248335CaB5849E50DE1157eB35F39e060Df1fDc",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "cellId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "buyer",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "message",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "price",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "timestamp",
+          "type": "uint256"
+        }
+      ],
+      "name": "CellPurchased",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "cellId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "newMessage",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "timestamp",
+          "type": "uint256"
+        }
+      ],
+      "name": "MessageUpdated",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "GRID_HEIGHT",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "GRID_WIDTH",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "MIN_INITIAL_PRICE",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "MIN_PRICE_INCREMENT",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "PRICE_DENOMINATOR",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "TOTAL_CELLS",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "cellId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "message",
+          "type": "string"
+        }
+      ],
+      "name": "buyCell",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "cellId",
+          "type": "uint256"
+        }
+      ],
+      "name": "cellIdToCoordinates",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "x",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "y",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "x",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "y",
+          "type": "uint256"
+        }
+      ],
+      "name": "coordinatesToCellId",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getAllCells",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "string",
+              "name": "message",
+              "type": "string"
+            },
+            {
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "price",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "timestamp",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct MessageVault.GridCell[]",
+          "name": "",
+          "type": "tuple[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "cellId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getCell",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "string",
+              "name": "message",
+              "type": "string"
+            },
+            {
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "price",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "timestamp",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct MessageVault.GridCell",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "cellId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getMinimumPrice",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getVaultBalance",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "grid",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "message",
+          "type": "string"
+        },
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "price",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "timestamp",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "totalVaultValue",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "cellId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "newMessage",
+          "type": "string"
+        }
+      ],
+      "name": "updateMessage",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0xc529ed3bc437d1a31886f794f63a7a5c6a3ebd97877f8178eb52f53af37d341f",
+  "receipt": {
+    "to": null,
+    "from": "0x21884Ff2DAa9153f2263620235493F8f5A0f791C",
+    "contractAddress": "0x1248335CaB5849E50DE1157eB35F39e060Df1fDc",
+    "transactionIndex": 18,
+    "gasUsed": "983816",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x0a0f7d2ec5007a59ed8eb30ed379b00cbc5335d8aa3d24d7818425b5ce1dedff",
+    "transactionHash": "0xc529ed3bc437d1a31886f794f63a7a5c6a3ebd97877f8178eb52f53af37d341f",
+    "logs": [],
+    "blockNumber": 51955579,
+    "cumulativeGasUsed": "3973626",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 1,
+  "solcInputHash": "b96d5eccc5b4eb1ceba4eb8e40bdcd82",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.20+commit.a1b79de6\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"cellId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"buyer\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"message\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"name\":\"CellPurchased\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"cellId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"newMessage\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"name\":\"MessageUpdated\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"GRID_HEIGHT\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"GRID_WIDTH\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"MIN_INITIAL_PRICE\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"MIN_PRICE_INCREMENT\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"PRICE_DENOMINATOR\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"TOTAL_CELLS\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"cellId\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"message\",\"type\":\"string\"}],\"name\":\"buyCell\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"cellId\",\"type\":\"uint256\"}],\"name\":\"cellIdToCoordinates\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"x\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"y\",\"type\":\"uint256\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"x\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"y\",\"type\":\"uint256\"}],\"name\":\"coordinatesToCellId\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getAllCells\",\"outputs\":[{\"components\":[{\"internalType\":\"string\",\"name\":\"message\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"internalType\":\"struct MessageVault.GridCell[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"cellId\",\"type\":\"uint256\"}],\"name\":\"getCell\",\"outputs\":[{\"components\":[{\"internalType\":\"string\",\"name\":\"message\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"internalType\":\"struct MessageVault.GridCell\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"cellId\",\"type\":\"uint256\"}],\"name\":\"getMinimumPrice\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getVaultBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"grid\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"message\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"totalVaultValue\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"cellId\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"newMessage\",\"type\":\"string\"}],\"name\":\"updateMessage\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"details\":\"A contract where users can buy grid cells with messages Each cell can be overwritten by paying more than the previous price All funds are stored in the contract vault\",\"kind\":\"dev\",\"methods\":{\"buyCell(uint256,string)\":{\"details\":\"Buy or overwrite a grid cell with a message\",\"params\":{\"cellId\":\"The ID of the cell (0 to TOTAL_CELLS-1)\",\"message\":\"The message to display in the cell\"}},\"cellIdToCoordinates(uint256)\":{\"details\":\"Convert cell ID to x,y coordinates\",\"params\":{\"cellId\":\"The cell ID\"},\"returns\":{\"x\":\"and y coordinates\"}},\"coordinatesToCellId(uint256,uint256)\":{\"details\":\"Convert x,y coordinates to cell ID\",\"params\":{\"x\":\"The x coordinate (0 to GRID_WIDTH-1)\",\"y\":\"The y coordinate (0 to GRID_HEIGHT-1)\"},\"returns\":{\"_0\":\"The cell ID\"}},\"getAllCells()\":{\"details\":\"Get all cell data for the entire grid\",\"returns\":{\"_0\":\"An array of all grid cells\"}},\"getCell(uint256)\":{\"details\":\"Get cell data\",\"params\":{\"cellId\":\"The ID of the cell\"},\"returns\":{\"_0\":\"The cell data\"}},\"getMinimumPrice(uint256)\":{\"details\":\"Calculate minimum price to buy a cell\",\"params\":{\"cellId\":\"The ID of the cell\"},\"returns\":{\"_0\":\"The minimum price required\"}},\"getVaultBalance()\":{\"details\":\"Get total vault balance\",\"returns\":{\"_0\":\"The total ETH stored in the vault\"}},\"updateMessage(uint256,string)\":{\"details\":\"Update message of a cell you own (free)\",\"params\":{\"cellId\":\"The ID of the cell\",\"newMessage\":\"The new message\"}}},\"title\":\"MessageVault\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/MessageVault.sol\":\"MessageVault\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/MessageVault.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.0;\\n\\n/**\\n * @title MessageVault\\n * @dev A contract where users can buy grid cells with messages\\n * Each cell can be overwritten by paying more than the previous price\\n * All funds are stored in the contract vault\\n */\\ncontract MessageVault {\\n    struct GridCell {\\n        string message;\\n        address owner;\\n        uint256 price;\\n        uint256 timestamp;\\n    }\\n\\n    // Grid dimensions\\n    uint256 public constant GRID_WIDTH = 10;\\n    uint256 public constant GRID_HEIGHT = 10;\\n    uint256 public constant TOTAL_CELLS = GRID_WIDTH * GRID_HEIGHT;\\n\\n    // Minimum price increment (10% more than current price)\\n    uint256 public constant MIN_PRICE_INCREMENT = 110; // 110% = 10% increase\\n    uint256 public constant PRICE_DENOMINATOR = 100;\\n\\n    // Minimum initial price (0.001 ETH)\\n    uint256 public constant MIN_INITIAL_PRICE = 0.001 ether;\\n\\n    // Grid storage: cellId => GridCell\\n    mapping(uint256 => GridCell) public grid;\\n\\n    // Total value locked in vault\\n    uint256 public totalVaultValue;\\n\\n    // Events\\n    event CellPurchased(\\n        uint256 indexed cellId,\\n        address indexed buyer,\\n        address indexed previousOwner,\\n        string message,\\n        uint256 price,\\n        uint256 timestamp\\n    );\\n\\n    event MessageUpdated(uint256 indexed cellId, address indexed owner, string newMessage, uint256 timestamp);\\n\\n    /**\\n     * @dev Buy or overwrite a grid cell with a message\\n     * @param cellId The ID of the cell (0 to TOTAL_CELLS-1)\\n     * @param message The message to display in the cell\\n     */\\n    function buyCell(uint256 cellId, string memory message) external payable {\\n        require(cellId < TOTAL_CELLS, \\\"Invalid cell ID\\\");\\n        require(bytes(message).length > 0, \\\"Message cannot be empty\\\");\\n        require(bytes(message).length <= 100, \\\"Message too long (max 100 chars)\\\");\\n\\n        GridCell storage cell = grid[cellId];\\n        uint256 currentPrice = cell.price;\\n\\n        if (currentPrice == 0) {\\n            // First purchase of this cell\\n            require(msg.value >= MIN_INITIAL_PRICE, \\\"Price too low for initial purchase\\\");\\n        } else {\\n            // Cell already owned, must pay more\\n            uint256 minPrice = (currentPrice * MIN_PRICE_INCREMENT) / PRICE_DENOMINATOR;\\n            require(msg.value >= minPrice, \\\"Must pay at least 10% more than current price\\\");\\n        }\\n\\n        address previousOwner = cell.owner;\\n\\n        // Update cell\\n        cell.message = message;\\n        cell.owner = msg.sender;\\n        cell.price = msg.value;\\n        cell.timestamp = block.timestamp;\\n\\n        // Add to vault\\n        totalVaultValue += msg.value;\\n\\n        emit CellPurchased(cellId, msg.sender, previousOwner, message, msg.value, block.timestamp);\\n    }\\n\\n    /**\\n     * @dev Update message of a cell you own (free)\\n     * @param cellId The ID of the cell\\n     * @param newMessage The new message\\n     */\\n    function updateMessage(uint256 cellId, string memory newMessage) external {\\n        require(cellId < TOTAL_CELLS, \\\"Invalid cell ID\\\");\\n        require(bytes(newMessage).length > 0, \\\"Message cannot be empty\\\");\\n        require(bytes(newMessage).length <= 100, \\\"Message too long (max 100 chars)\\\");\\n\\n        GridCell storage cell = grid[cellId];\\n        require(cell.owner == msg.sender, \\\"You don't own this cell\\\");\\n\\n        cell.message = newMessage;\\n        cell.timestamp = block.timestamp;\\n\\n        emit MessageUpdated(cellId, msg.sender, newMessage, block.timestamp);\\n    }\\n\\n    /**\\n     * @dev Get all cell data for the entire grid\\n     * @return An array of all grid cells\\n     */\\n    function getAllCells() external view returns (GridCell[] memory) {\\n        GridCell[] memory cells = new GridCell[](TOTAL_CELLS);\\n        for (uint256 i = 0; i < TOTAL_CELLS; i++) {\\n            cells[i] = grid[i];\\n        }\\n        return cells;\\n    }\\n\\n    /**\\n     * @dev Get cell data\\n     * @param cellId The ID of the cell\\n     * @return The cell data\\n     */\\n    function getCell(uint256 cellId) external view returns (GridCell memory) {\\n        require(cellId < TOTAL_CELLS, \\\"Invalid cell ID\\\");\\n        return grid[cellId];\\n    }\\n\\n    /**\\n     * @dev Calculate minimum price to buy a cell\\n     * @param cellId The ID of the cell\\n     * @return The minimum price required\\n     */\\n    function getMinimumPrice(uint256 cellId) external view returns (uint256) {\\n        require(cellId < TOTAL_CELLS, \\\"Invalid cell ID\\\");\\n\\n        GridCell storage cell = grid[cellId];\\n        if (cell.price == 0) {\\n            return MIN_INITIAL_PRICE;\\n        }\\n        return (cell.price * MIN_PRICE_INCREMENT) / PRICE_DENOMINATOR;\\n    }\\n\\n    /**\\n     * @dev Get total vault balance\\n     * @return The total ETH stored in the vault\\n     */\\n    function getVaultBalance() external view returns (uint256) {\\n        return address(this).balance;\\n    }\\n\\n    /**\\n     * @dev Convert x,y coordinates to cell ID\\n     * @param x The x coordinate (0 to GRID_WIDTH-1)\\n     * @param y The y coordinate (0 to GRID_HEIGHT-1)\\n     * @return The cell ID\\n     */\\n    function coordinatesToCellId(uint256 x, uint256 y) public pure returns (uint256) {\\n        require(x < GRID_WIDTH, \\\"Invalid x coordinate\\\");\\n        require(y < GRID_HEIGHT, \\\"Invalid y coordinate\\\");\\n        return y * GRID_WIDTH + x;\\n    }\\n\\n    /**\\n     * @dev Convert cell ID to x,y coordinates\\n     * @param cellId The cell ID\\n     * @return x and y coordinates\\n     */\\n    function cellIdToCoordinates(uint256 cellId) public pure returns (uint256 x, uint256 y) {\\n        require(cellId < TOTAL_CELLS, \\\"Invalid cell ID\\\");\\n        x = cellId % GRID_WIDTH;\\n        y = cellId / GRID_WIDTH;\\n    }\\n}\\n\",\"keccak256\":\"0x51428bd94c3fd69a0c67ddb2feadf34deb107ce88db2af6eb7a2a2208117c129\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b506110d4806100206000396000f3fe6080604052600436106100f35760003560e01c8063626e76221161008a578063afbc74b911610059578063afbc74b914610272578063d5d0f6fa14610288578063ed12e8ef146102a8578063f344fe00146102bb57600080fd5b8063626e7622146101ed5780636c1516e1146102085780637f9493861461021d5780638bd2f3bc1461023d57600080fd5b80634ae73cec116100c65780634ae73cec146101935780634bf11ad21461015057806351d2cc8f146101a85780636108048d146101d857600080fd5b8063112007bd146100f8578063206848f614610123578063235e78eb14610150578063463e031814610173575b600080fd5b34801561010457600080fd5b5061010d6102d0565b60405161011a9190610c85565b60405180910390f35b34801561012f57600080fd5b5061014361013e366004610ce7565b61047e565b60405161011a9190610d00565b34801561015c57600080fd5b50610165600a81565b60405190815260200161011a565b34801561017f57600080fd5b5061016561018e366004610ce7565b6105bc565b34801561019f57600080fd5b50610165610634565b3480156101b457600080fd5b506101c86101c3366004610ce7565b610642565b60405161011a9493929190610d13565b6101eb6101e6366004610d61565b6106fe565b005b3480156101f957600080fd5b5061016566038d7ea4c6800081565b34801561021457600080fd5b50610165606481565b34801561022957600080fd5b506101eb610238366004610d61565b610978565b34801561024957600080fd5b5061025d610258366004610ce7565b610afe565b6040805192835260208301919091520161011a565b34801561027e57600080fd5b5061016560015481565b34801561029457600080fd5b506101656102a3366004610e1c565b610b49565b3480156102b457600080fd5b5047610165565b3480156102c757600080fd5b50610165606e81565b606060006102df600a80610e54565b67ffffffffffffffff8111156102f7576102f7610d4b565b60405190808252806020026020018201604052801561035c57816020015b61034960405180608001604052806060815260200160006001600160a01b0316815260200160008152602001600081525090565b8152602001906001900390816103155790505b50905060005b61036d600a80610e54565b811015610478576000818152602081905260409081902081516080810190925280548290829061039c90610e6b565b80601f01602080910402602001604051908101604052809291908181526020018280546103c890610e6b565b80156104155780601f106103ea57610100808354040283529160200191610415565b820191906000526020600020905b8154815290600101906020018083116103f857829003601f168201915b505050918352505060018201546001600160a01b0316602082015260028201546040820152600390910154606090910152825183908390811061045a5761045a610e9f565b6020026020010181905250808061047090610eb5565b915050610362565b50919050565b6104b260405180608001604052806060815260200160006001600160a01b0316815260200160008152602001600081525090565b6104bd600a80610e54565b82106104e45760405162461bcd60e51b81526004016104db90610ece565b60405180910390fd5b6000828152602081905260409081902081516080810190925280548290829061050c90610e6b565b80601f016020809104026020016040519081016040528092919081815260200182805461053890610e6b565b80156105855780601f1061055a57610100808354040283529160200191610585565b820191906000526020600020905b81548152906001019060200180831161056857829003601f168201915b505050918352505060018201546001600160a01b031660208201526002820154604082015260039091015460609091015292915050565b60006105c9600a80610e54565b82106105e75760405162461bcd60e51b81526004016104db90610ece565b60008281526020819052604081206002810154909103610610575066038d7ea4c6800092915050565b6064606e82600201546106239190610e54565b61062d9190610f0d565b9392505050565b61063f600a80610e54565b81565b60006020819052908152604090208054819061065d90610e6b565b80601f016020809104026020016040519081016040528092919081815260200182805461068990610e6b565b80156106d65780601f106106ab576101008083540402835291602001916106d6565b820191906000526020600020905b8154815290600101906020018083116106b957829003601f168201915b505050506001830154600284015460039094015492936001600160a01b039091169290915084565b610709600a80610e54565b82106107275760405162461bcd60e51b81526004016104db90610ece565b60008151116107725760405162461bcd60e51b81526020600482015260176024820152764d6573736167652063616e6e6f7420626520656d70747960481b60448201526064016104db565b6064815111156107c45760405162461bcd60e51b815260206004820181905260248201527f4d65737361676520746f6f206c6f6e6720286d6178203130302063686172732960448201526064016104db565b6000828152602081905260408120600281015490918190036108475766038d7ea4c680003410156108425760405162461bcd60e51b815260206004820152602260248201527f507269636520746f6f206c6f7720666f7220696e697469616c20707572636861604482015261736560f01b60648201526084016104db565b6108ca565b60006064610856606e84610e54565b6108609190610f0d565b9050803410156108c85760405162461bcd60e51b815260206004820152602d60248201527f4d75737420706179206174206c6561737420313025206d6f7265207468616e2060448201526c63757272656e7420707269636560981b60648201526084016104db565b505b60018201546001600160a01b0316826108e38582610f70565b50600180840180546001600160a01b031916331790553460028501819055426003860155815490919060009061091a908490611030565b92505081905550806001600160a01b0316336001600160a01b0316867f37e08609c27ed50403d39d40036f8fe763e37d4204bcc7dd8cc4364e9b3e229e87344260405161096993929190611043565b60405180910390a45050505050565b610983600a80610e54565b82106109a15760405162461bcd60e51b81526004016104db90610ece565b60008151116109ec5760405162461bcd60e51b81526020600482015260176024820152764d6573736167652063616e6e6f7420626520656d70747960481b60448201526064016104db565b606481511115610a3e5760405162461bcd60e51b815260206004820181905260248201527f4d65737361676520746f6f206c6f6e6720286d6178203130302063686172732960448201526064016104db565b600082815260208190526040902060018101546001600160a01b03163314610aa85760405162461bcd60e51b815260206004820152601760248201527f596f7520646f6e2774206f776e20746869732063656c6c00000000000000000060448201526064016104db565b80610ab38382610f70565b504260038201819055604051339185917f9e4dcf802aeb5356c64a1b315ec83129272cda000bb9c888420e23ba5327521f91610af191879190611068565b60405180910390a3505050565b600080610b0c600a80610e54565b8310610b2a5760405162461bcd60e51b81526004016104db90610ece565b610b35600a8461108a565b9150610b42600a84610f0d565b9050915091565b6000600a8310610b925760405162461bcd60e51b8152602060048201526014602482015273496e76616c6964207820636f6f7264696e61746560601b60448201526064016104db565b600a8210610bd95760405162461bcd60e51b8152602060048201526014602482015273496e76616c6964207920636f6f7264696e61746560601b60448201526064016104db565b82610be5600a84610e54565b610bef9190611030565b90505b92915050565b6000815180845260005b81811015610c1e57602081850181015186830182015201610c02565b506000602082860101526020601f19601f83011685010191505092915050565b6000815160808452610c536080850182610bf8565b6020848101516001600160a01b0316908601526040808501519086015260609384015193909401929092525090919050565b6000602080830181845280855180835260408601915060408160051b870101925083870160005b82811015610cda57603f19888603018452610cc8858351610c3e565b94509285019290850190600101610cac565b5092979650505050505050565b600060208284031215610cf957600080fd5b5035919050565b602081526000610bef6020830184610c3e565b608081526000610d266080830187610bf8565b6001600160a01b03959095166020830152506040810192909252606090910152919050565b634e487b7160e01b600052604160045260246000fd5b60008060408385031215610d7457600080fd5b82359150602083013567ffffffffffffffff80821115610d9357600080fd5b818501915085601f830112610da757600080fd5b813581811115610db957610db9610d4b565b604051601f8201601f19908116603f01168101908382118183101715610de157610de1610d4b565b81604052828152886020848701011115610dfa57600080fd5b8260208601602083013760006020848301015280955050505050509250929050565b60008060408385031215610e2f57600080fd5b50508035926020909101359150565b634e487b7160e01b600052601160045260246000fd5b8082028115828204841417610bf257610bf2610e3e565b600181811c90821680610e7f57607f821691505b60208210810361047857634e487b7160e01b600052602260045260246000fd5b634e487b7160e01b600052603260045260246000fd5b600060018201610ec757610ec7610e3e565b5060010190565b6020808252600f908201526e125b9d985b1a590818d95b1b081251608a1b604082015260600190565b634e487b7160e01b600052601260045260246000fd5b600082610f1c57610f1c610ef7565b500490565b601f821115610f6b57600081815260208120601f850160051c81016020861015610f485750805b601f850160051c820191505b81811015610f6757828155600101610f54565b5050505b505050565b815167ffffffffffffffff811115610f8a57610f8a610d4b565b610f9e81610f988454610e6b565b84610f21565b602080601f831160018114610fd35760008415610fbb5750858301515b600019600386901b1c1916600185901b178555610f67565b600085815260208120601f198616915b8281101561100257888601518255948401946001909101908401610fe3565b50858210156110205787850151600019600388901b60f8161c191681555b5050505050600190811b01905550565b80820180821115610bf257610bf2610e3e565b6060815260006110566060830186610bf8565b60208301949094525060400152919050565b60408152600061107b6040830185610bf8565b90508260208301529392505050565b60008261109957611099610ef7565b50069056fea2646970667358221220813b7f9b5cb9bf31f17d9fabb42f2d3489007f81488a11672375b036892fba4b64736f6c63430008140033",
+  "deployedBytecode": "0x6080604052600436106100f35760003560e01c8063626e76221161008a578063afbc74b911610059578063afbc74b914610272578063d5d0f6fa14610288578063ed12e8ef146102a8578063f344fe00146102bb57600080fd5b8063626e7622146101ed5780636c1516e1146102085780637f9493861461021d5780638bd2f3bc1461023d57600080fd5b80634ae73cec116100c65780634ae73cec146101935780634bf11ad21461015057806351d2cc8f146101a85780636108048d146101d857600080fd5b8063112007bd146100f8578063206848f614610123578063235e78eb14610150578063463e031814610173575b600080fd5b34801561010457600080fd5b5061010d6102d0565b60405161011a9190610c85565b60405180910390f35b34801561012f57600080fd5b5061014361013e366004610ce7565b61047e565b60405161011a9190610d00565b34801561015c57600080fd5b50610165600a81565b60405190815260200161011a565b34801561017f57600080fd5b5061016561018e366004610ce7565b6105bc565b34801561019f57600080fd5b50610165610634565b3480156101b457600080fd5b506101c86101c3366004610ce7565b610642565b60405161011a9493929190610d13565b6101eb6101e6366004610d61565b6106fe565b005b3480156101f957600080fd5b5061016566038d7ea4c6800081565b34801561021457600080fd5b50610165606481565b34801561022957600080fd5b506101eb610238366004610d61565b610978565b34801561024957600080fd5b5061025d610258366004610ce7565b610afe565b6040805192835260208301919091520161011a565b34801561027e57600080fd5b5061016560015481565b34801561029457600080fd5b506101656102a3366004610e1c565b610b49565b3480156102b457600080fd5b5047610165565b3480156102c757600080fd5b50610165606e81565b606060006102df600a80610e54565b67ffffffffffffffff8111156102f7576102f7610d4b565b60405190808252806020026020018201604052801561035c57816020015b61034960405180608001604052806060815260200160006001600160a01b0316815260200160008152602001600081525090565b8152602001906001900390816103155790505b50905060005b61036d600a80610e54565b811015610478576000818152602081905260409081902081516080810190925280548290829061039c90610e6b565b80601f01602080910402602001604051908101604052809291908181526020018280546103c890610e6b565b80156104155780601f106103ea57610100808354040283529160200191610415565b820191906000526020600020905b8154815290600101906020018083116103f857829003601f168201915b505050918352505060018201546001600160a01b0316602082015260028201546040820152600390910154606090910152825183908390811061045a5761045a610e9f565b6020026020010181905250808061047090610eb5565b915050610362565b50919050565b6104b260405180608001604052806060815260200160006001600160a01b0316815260200160008152602001600081525090565b6104bd600a80610e54565b82106104e45760405162461bcd60e51b81526004016104db90610ece565b60405180910390fd5b6000828152602081905260409081902081516080810190925280548290829061050c90610e6b565b80601f016020809104026020016040519081016040528092919081815260200182805461053890610e6b565b80156105855780601f1061055a57610100808354040283529160200191610585565b820191906000526020600020905b81548152906001019060200180831161056857829003601f168201915b505050918352505060018201546001600160a01b031660208201526002820154604082015260039091015460609091015292915050565b60006105c9600a80610e54565b82106105e75760405162461bcd60e51b81526004016104db90610ece565b60008281526020819052604081206002810154909103610610575066038d7ea4c6800092915050565b6064606e82600201546106239190610e54565b61062d9190610f0d565b9392505050565b61063f600a80610e54565b81565b60006020819052908152604090208054819061065d90610e6b565b80601f016020809104026020016040519081016040528092919081815260200182805461068990610e6b565b80156106d65780601f106106ab576101008083540402835291602001916106d6565b820191906000526020600020905b8154815290600101906020018083116106b957829003601f168201915b505050506001830154600284015460039094015492936001600160a01b039091169290915084565b610709600a80610e54565b82106107275760405162461bcd60e51b81526004016104db90610ece565b60008151116107725760405162461bcd60e51b81526020600482015260176024820152764d6573736167652063616e6e6f7420626520656d70747960481b60448201526064016104db565b6064815111156107c45760405162461bcd60e51b815260206004820181905260248201527f4d65737361676520746f6f206c6f6e6720286d6178203130302063686172732960448201526064016104db565b6000828152602081905260408120600281015490918190036108475766038d7ea4c680003410156108425760405162461bcd60e51b815260206004820152602260248201527f507269636520746f6f206c6f7720666f7220696e697469616c20707572636861604482015261736560f01b60648201526084016104db565b6108ca565b60006064610856606e84610e54565b6108609190610f0d565b9050803410156108c85760405162461bcd60e51b815260206004820152602d60248201527f4d75737420706179206174206c6561737420313025206d6f7265207468616e2060448201526c63757272656e7420707269636560981b60648201526084016104db565b505b60018201546001600160a01b0316826108e38582610f70565b50600180840180546001600160a01b031916331790553460028501819055426003860155815490919060009061091a908490611030565b92505081905550806001600160a01b0316336001600160a01b0316867f37e08609c27ed50403d39d40036f8fe763e37d4204bcc7dd8cc4364e9b3e229e87344260405161096993929190611043565b60405180910390a45050505050565b610983600a80610e54565b82106109a15760405162461bcd60e51b81526004016104db90610ece565b60008151116109ec5760405162461bcd60e51b81526020600482015260176024820152764d6573736167652063616e6e6f7420626520656d70747960481b60448201526064016104db565b606481511115610a3e5760405162461bcd60e51b815260206004820181905260248201527f4d65737361676520746f6f206c6f6e6720286d6178203130302063686172732960448201526064016104db565b600082815260208190526040902060018101546001600160a01b03163314610aa85760405162461bcd60e51b815260206004820152601760248201527f596f7520646f6e2774206f776e20746869732063656c6c00000000000000000060448201526064016104db565b80610ab38382610f70565b504260038201819055604051339185917f9e4dcf802aeb5356c64a1b315ec83129272cda000bb9c888420e23ba5327521f91610af191879190611068565b60405180910390a3505050565b600080610b0c600a80610e54565b8310610b2a5760405162461bcd60e51b81526004016104db90610ece565b610b35600a8461108a565b9150610b42600a84610f0d565b9050915091565b6000600a8310610b925760405162461bcd60e51b8152602060048201526014602482015273496e76616c6964207820636f6f7264696e61746560601b60448201526064016104db565b600a8210610bd95760405162461bcd60e51b8152602060048201526014602482015273496e76616c6964207920636f6f7264696e61746560601b60448201526064016104db565b82610be5600a84610e54565b610bef9190611030565b90505b92915050565b6000815180845260005b81811015610c1e57602081850181015186830182015201610c02565b506000602082860101526020601f19601f83011685010191505092915050565b6000815160808452610c536080850182610bf8565b6020848101516001600160a01b0316908601526040808501519086015260609384015193909401929092525090919050565b6000602080830181845280855180835260408601915060408160051b870101925083870160005b82811015610cda57603f19888603018452610cc8858351610c3e565b94509285019290850190600101610cac565b5092979650505050505050565b600060208284031215610cf957600080fd5b5035919050565b602081526000610bef6020830184610c3e565b608081526000610d266080830187610bf8565b6001600160a01b03959095166020830152506040810192909252606090910152919050565b634e487b7160e01b600052604160045260246000fd5b60008060408385031215610d7457600080fd5b82359150602083013567ffffffffffffffff80821115610d9357600080fd5b818501915085601f830112610da757600080fd5b813581811115610db957610db9610d4b565b604051601f8201601f19908116603f01168101908382118183101715610de157610de1610d4b565b81604052828152886020848701011115610dfa57600080fd5b8260208601602083013760006020848301015280955050505050509250929050565b60008060408385031215610e2f57600080fd5b50508035926020909101359150565b634e487b7160e01b600052601160045260246000fd5b8082028115828204841417610bf257610bf2610e3e565b600181811c90821680610e7f57607f821691505b60208210810361047857634e487b7160e01b600052602260045260246000fd5b634e487b7160e01b600052603260045260246000fd5b600060018201610ec757610ec7610e3e565b5060010190565b6020808252600f908201526e125b9d985b1a590818d95b1b081251608a1b604082015260600190565b634e487b7160e01b600052601260045260246000fd5b600082610f1c57610f1c610ef7565b500490565b601f821115610f6b57600081815260208120601f850160051c81016020861015610f485750805b601f850160051c820191505b81811015610f6757828155600101610f54565b5050505b505050565b815167ffffffffffffffff811115610f8a57610f8a610d4b565b610f9e81610f988454610e6b565b84610f21565b602080601f831160018114610fd35760008415610fbb5750858301515b600019600386901b1c1916600185901b178555610f67565b600085815260208120601f198616915b8281101561100257888601518255948401946001909101908401610fe3565b50858210156110205787850151600019600388901b60f8161c191681555b5050505050600190811b01905550565b80820180821115610bf257610bf2610e3e565b6060815260006110566060830186610bf8565b60208301949094525060400152919050565b60408152600061107b6040830185610bf8565b90508260208301529392505050565b60008261109957611099610ef7565b50069056fea2646970667358221220813b7f9b5cb9bf31f17d9fabb42f2d3489007f81488a11672375b036892fba4b64736f6c63430008140033",
+  "devdoc": {
+    "details": "A contract where users can buy grid cells with messages Each cell can be overwritten by paying more than the previous price All funds are stored in the contract vault",
+    "kind": "dev",
+    "methods": {
+      "buyCell(uint256,string)": {
+        "details": "Buy or overwrite a grid cell with a message",
+        "params": {
+          "cellId": "The ID of the cell (0 to TOTAL_CELLS-1)",
+          "message": "The message to display in the cell"
+        }
+      },
+      "cellIdToCoordinates(uint256)": {
+        "details": "Convert cell ID to x,y coordinates",
+        "params": {
+          "cellId": "The cell ID"
+        },
+        "returns": {
+          "x": "and y coordinates"
+        }
+      },
+      "coordinatesToCellId(uint256,uint256)": {
+        "details": "Convert x,y coordinates to cell ID",
+        "params": {
+          "x": "The x coordinate (0 to GRID_WIDTH-1)",
+          "y": "The y coordinate (0 to GRID_HEIGHT-1)"
+        },
+        "returns": {
+          "_0": "The cell ID"
+        }
+      },
+      "getAllCells()": {
+        "details": "Get all cell data for the entire grid",
+        "returns": {
+          "_0": "An array of all grid cells"
+        }
+      },
+      "getCell(uint256)": {
+        "details": "Get cell data",
+        "params": {
+          "cellId": "The ID of the cell"
+        },
+        "returns": {
+          "_0": "The cell data"
+        }
+      },
+      "getMinimumPrice(uint256)": {
+        "details": "Calculate minimum price to buy a cell",
+        "params": {
+          "cellId": "The ID of the cell"
+        },
+        "returns": {
+          "_0": "The minimum price required"
+        }
+      },
+      "getVaultBalance()": {
+        "details": "Get total vault balance",
+        "returns": {
+          "_0": "The total ETH stored in the vault"
+        }
+      },
+      "updateMessage(uint256,string)": {
+        "details": "Update message of a cell you own (free)",
+        "params": {
+          "cellId": "The ID of the cell",
+          "newMessage": "The new message"
+        }
+      }
+    },
+    "title": "MessageVault",
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 36,
+        "contract": "contracts/MessageVault.sol:MessageVault",
+        "label": "grid",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_mapping(t_uint256,t_struct(GridCell)11_storage)"
+      },
+      {
+        "astId": 38,
+        "contract": "contracts/MessageVault.sol:MessageVault",
+        "label": "totalVaultValue",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_uint256"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_mapping(t_uint256,t_struct(GridCell)11_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => struct MessageVault.GridCell)",
+        "numberOfBytes": "32",
+        "value": "t_struct(GridCell)11_storage"
+      },
+      "t_string_storage": {
+        "encoding": "bytes",
+        "label": "string",
+        "numberOfBytes": "32"
+      },
+      "t_struct(GridCell)11_storage": {
+        "encoding": "inplace",
+        "label": "struct MessageVault.GridCell",
+        "members": [
+          {
+            "astId": 4,
+            "contract": "contracts/MessageVault.sol:MessageVault",
+            "label": "message",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 6,
+            "contract": "contracts/MessageVault.sol:MessageVault",
+            "label": "owner",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_address"
+          },
+          {
+            "astId": 8,
+            "contract": "contracts/MessageVault.sol:MessageVault",
+            "label": "price",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 10,
+            "contract": "contracts/MessageVault.sol:MessageVault",
+            "label": "timestamp",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_uint256"
+          }
+        ],
+        "numberOfBytes": "128"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}
