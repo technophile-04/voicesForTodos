@@ -104,14 +104,14 @@ const MiniappPage: NextPage = () => {
           <div className="flex flex-col gap-6">
             {/* Header */}
             <div className="text-center">
-              <h1 className="text-4xl font-bold mb-2">💬 Message Vault Grid</h1>
-              <p className="text-lg opacity-70">Buy a spot on the grid and leave your message on-chain!</p>
+              <h1 className="text-4xl font-bold mb-3">💬 Message Vault Grid</h1>
+              <p className="text-lg opacity-70 mb-6">Buy a spot on the grid and leave your message on-chain!</p>
 
               {/* Farcaster User Info */}
               {isMiniApp && farcasterUser && (
-                <div className="mt-4 flex justify-center items-center gap-2">
+                <div className="mt-4 mb-4 flex justify-center items-center gap-2">
                   <div className="avatar">
-                    <div className="w-8 h-8 rounded-full">
+                    <div className="w-10 h-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                       {farcasterUser.pfpUrl && (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img src={farcasterUser.pfpUrl} alt={farcasterUser.username || "User"} />
@@ -125,15 +125,21 @@ const MiniappPage: NextPage = () => {
               )}
 
               <div className="mt-4 flex justify-center gap-4 text-sm flex-wrap">
-                <div className="badge badge-lg badge-primary">
-                  💰 Vault: {vaultBalance ? formatEther(vaultBalance) : "0"} CELO
+                <div className="badge badge-lg badge-primary gap-2 shadow-md">
+                  <span>💰</span>
+                  <span>Vault: {vaultBalance ? formatEther(vaultBalance) : "0"} CELO</span>
                 </div>
-                <div className="badge badge-lg badge-secondary">
-                  📊 Total: {totalVaultValue ? formatEther(totalVaultValue) : "0"} CELO
+                <div className="badge badge-lg badge-secondary gap-2 shadow-md">
+                  <span>📊</span>
+                  <span>Total: {totalVaultValue ? formatEther(totalVaultValue) : "0"} CELO</span>
                 </div>
                 {isMiniApp && (
-                  <button className="badge badge-lg badge-accent cursor-pointer hover:scale-105" onClick={handleShare}>
-                    📤 Share
+                  <button
+                    className="badge badge-lg badge-accent gap-2 cursor-pointer hover:scale-105 shadow-md transition-transform"
+                    onClick={handleShare}
+                  >
+                    <span>📤</span>
+                    <span>Share</span>
                   </button>
                 )}
               </div>
@@ -154,8 +160,10 @@ const MiniappPage: NextPage = () => {
                         onClick={() => handleCellClick(index)}
                         className={`
                           aspect-square relative cursor-pointer
-                          border-2 rounded-lg p-2 transition-all hover:scale-105 hover:shadow-lg
-                          ${hasMessage ? "border-primary bg-primary/10" : "border-base-300 bg-base-100"}
+                          border-2 rounded-lg p-2 transition-all duration-200
+                          hover:scale-105 hover:shadow-xl hover:z-10
+                          active:scale-95
+                          ${hasMessage ? "border-primary bg-primary/10 hover:bg-primary/20" : "border-base-300 bg-base-100 hover:bg-base-200"}
                         `}
                         title={`Cell ${index}${hasMessage ? `\nMessage: ${cell.message}\nPrice: ${formatEther(price)} CELO` : "\nEmpty - Click to claim!"}`}
                       >
@@ -178,7 +186,7 @@ const MiniappPage: NextPage = () => {
             </div>
 
             {/* Instructions */}
-            <div className="alert">
+            <div className="alert shadow-md">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -205,19 +213,22 @@ const MiniappPage: NextPage = () => {
       {/* Modal for buying cell */}
       {isModalOpen && selectedCell !== null && (
         <div className="modal modal-open">
-          <div className="modal-box max-w-md">
-            <h3 className="font-bold text-lg mb-4">
+          <div className="modal-box max-w-md shadow-2xl">
+            <h3 className="font-bold text-xl mb-4">
               Buy Cell #{selectedCell}
-              {allCells?.[selectedCell]?.message && " (Overwrite)"}
+              {allCells?.[selectedCell]?.message && (
+                <span className="badge badge-warning badge-sm ml-2">Overwrite</span>
+              )}
             </h3>
 
             {/* Current cell info */}
             {allCells?.[selectedCell] && allCells[selectedCell].message && (
-              <div className="bg-base-200 p-4 rounded-lg mb-4">
-                <p className="text-sm font-bold mb-2">Current Message:</p>
-                <p className="text-lg mb-2">&quot;{allCells[selectedCell].message}&quot;</p>
+              <div className="bg-base-200 p-4 rounded-lg mb-4 border border-base-300">
+                <p className="text-sm font-bold mb-2 text-base-content/70">Current Message:</p>
+                <p className="text-lg mb-3 font-semibold">&quot;{allCells[selectedCell].message}&quot;</p>
+                <div className="divider my-2"></div>
                 <p className="text-sm opacity-70 mb-1">
-                  Current Price: {formatEther(allCells[selectedCell].price)} CELO
+                  Current Price: <span className="font-semibold">{formatEther(allCells[selectedCell].price)} CELO</span>
                 </p>
                 <div className="text-sm opacity-70">
                   Owner: <Address address={allCells[selectedCell].owner} />
@@ -259,9 +270,9 @@ const MiniappPage: NextPage = () => {
             </div>
 
             {/* Modal actions */}
-            <div className="modal-action">
+            <div className="modal-action gap-2">
               <button
-                className="btn"
+                className="btn btn-ghost"
                 onClick={() => {
                   setIsModalOpen(false);
                   setNewMessage("");
@@ -272,7 +283,7 @@ const MiniappPage: NextPage = () => {
                 Cancel
               </button>
               <button
-                className="btn btn-primary"
+                className="btn btn-primary shadow-md"
                 onClick={handleBuyCell}
                 disabled={isMining || !newMessage.trim() || !bidAmount}
               >
