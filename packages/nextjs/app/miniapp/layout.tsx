@@ -3,26 +3,26 @@ import type { Metadata } from "next";
 const appUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
 
 export const metadata: Metadata = {
-  title: "Message Vault - Farcaster Mini App",
-  description: "Buy a spot on the grid and leave your message on-chain! Higher bids can overwrite messages.",
+  title: "Voices For Todos - Character Grid",
+  description: "Buy cells to spell out your message on-chain! One character at a time on Celo.",
   openGraph: {
-    title: "Message Vault",
-    description: "Buy a spot on the grid and leave your message on-chain!",
+    title: "Voices For Todos",
+    description: "Buy cells to spell out your message on-chain! One character at a time.",
     images: [
       {
-        url: `${appUrl}/thumbnail_miniapp.jpg`,
+        url: `${appUrl}/voicesfortodos-icon.jpg`,
         width: 1200,
-        height: 800,
-        alt: "Message Vault Grid",
+        height: 1200,
+        alt: "Voices For Todos - Message Grid",
       },
     ],
   },
   other: {
     "fc:miniapp": JSON.stringify({
       version: "1",
-      imageUrl: `${appUrl}/thumbnail_miniapp.jpg`,
+      imageUrl: `${appUrl}/voicesfortodos-banner.jpg`,
       button: {
-        title: "Message Vault",
+        title: "Voices For Todos",
         action: {
           url: `${appUrl}/miniapp`,
         },

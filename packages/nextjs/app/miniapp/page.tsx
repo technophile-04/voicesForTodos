@@ -104,7 +104,12 @@ const MiniappPage: NextPage = () => {
           <div className="flex flex-col gap-6">
             {/* Header */}
             <div className="text-center">
-              <h1 className="text-4xl font-bold mb-3">💬 Message Vault Grid</h1>
+              <h1 className="text-5xl font-bold mb-2 bg-gradient-to-r from-cyan-500 via-teal-500 to-yellow-400 bg-clip-text text-transparent">
+                Voices For Todos
+              </h1>
+              <p className="text-sm font-semibold text-teal-600 dark:text-teal-400 mb-2">
+                Speak up. Outbid. Impact everyone.
+              </p>
               <p className="text-lg opacity-70 mb-6">Buy cells to spell out your message - one character at a time!</p>
 
               {/* Farcaster User Info */}
@@ -125,17 +130,17 @@ const MiniappPage: NextPage = () => {
               )}
 
               <div className="mt-4 flex justify-center gap-4 text-sm flex-wrap">
-                <div className="badge badge-lg badge-primary gap-2 shadow-md">
+                <div className="badge badge-lg bg-gradient-to-r from-cyan-500 to-teal-500 text-white border-none gap-2 shadow-md">
                   <span>💰</span>
                   <span>Vault: {vaultBalance ? formatEther(vaultBalance) : "0"} CELO</span>
                 </div>
-                <div className="badge badge-lg badge-secondary gap-2 shadow-md">
+                <div className="badge badge-lg bg-gradient-to-r from-teal-500 to-yellow-400 text-white border-none gap-2 shadow-md">
                   <span>📊</span>
                   <span>Total: {totalVaultValue ? formatEther(totalVaultValue) : "0"} CELO</span>
                 </div>
                 {isMiniApp && (
                   <button
-                    className="badge badge-lg badge-accent gap-2 cursor-pointer hover:scale-105 shadow-md transition-transform"
+                    className="badge badge-lg bg-gradient-to-r from-yellow-400 to-green-400 text-gray-800 border-none gap-2 cursor-pointer hover:scale-105 shadow-md transition-transform font-semibold"
                     onClick={handleShare}
                   >
                     <span>📤</span>
@@ -163,14 +168,16 @@ const MiniappPage: NextPage = () => {
                           border-2 rounded-lg p-2 transition-all duration-200
                           hover:scale-105 hover:shadow-xl hover:z-10
                           active:scale-95
-                          ${hasMessage ? "border-primary bg-primary/10 hover:bg-primary/20" : "border-base-300 bg-base-100 hover:bg-base-200"}
+                          ${hasMessage ? "border-teal-400 bg-gradient-to-br from-cyan-50 to-teal-50 dark:from-cyan-900/20 dark:to-teal-900/20 hover:from-cyan-100 hover:to-teal-100 dark:hover:from-cyan-900/30 dark:hover:to-teal-900/30" : "border-gray-300 dark:border-gray-600 bg-base-100 hover:bg-gradient-to-br hover:from-yellow-50 hover:to-green-50 dark:hover:from-yellow-900/10 dark:hover:to-green-900/10"}
                         `}
                         title={`Cell ${index}${hasMessage ? `\nMessage: ${cell.message}\nPrice: ${formatEther(price)} CELO` : "\nEmpty - Click to claim!"}`}
                       >
                         {/* Cell content */}
                         <div className="flex flex-col h-full justify-center items-center">
                           {hasMessage ? (
-                            <div className="font-bold text-2xl uppercase leading-none">{cell.message}</div>
+                            <div className="font-bold text-2xl uppercase leading-none text-teal-700 dark:text-teal-300">
+                              {cell.message}
+                            </div>
                           ) : (
                             <div className="text-center text-[8px] opacity-30">#{index}</div>
                           )}
