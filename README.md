@@ -1,22 +1,31 @@
-# 🏗 Scaffold-ETH 2
+# Voices For Todos
 
-<h4 align="center">
-  <a href="https://docs.scaffoldeth.io">Documentation</a> |
-  <a href="https://scaffoldeth.io">Website</a>
-</h4>
+**Speak up. Outbid. Impact everyone.** > The global billboard where vanity fuels philanthropy on the Celo Network.
 
-🧪 An open-source, up-to-date toolkit for building decentralized applications (dapps) on the Ethereum blockchain. It's designed to make it easier for developers to create and deploy smart contracts and build user interfaces that interact with those contracts.
+## 🌍 About The Project
 
-⚙️ Built using NextJS, RainbowKit, Hardhat, Wagmi, Viem, and Typescript.
+**VoicesForTodos** is a Farcaster Miniapp built on the Celo blockchain that gamifies charitable giving. It creates a digital "King of the Hill" billboard where users compete for visibility.
 
-- ✅ **Contract Hot Reload**: Your frontend auto-adapts to your smart contract as you edit it.
-- 🪝 **[Custom hooks](https://docs.scaffoldeth.io/hooks/)**: Collection of React hooks wrapper around [wagmi](https://wagmi.sh/) to simplify interactions with smart contracts with typescript autocompletion.
-- 🧱 [**Components**](https://docs.scaffoldeth.io/components/): Collection of common web3 components to quickly build your frontend.
-- 🔥 **Burner Wallet & Local Faucet**: Quickly test your application with a burner wallet and local faucet.
-- 🔐 **Integration with Wallet Providers**: Connect to different wallet providers and interact with the Ethereum network.
+The concept is simple: **Pay to play.**
+Users bid to display their message on the global billboard. To take the spot, you must outbid the current "owner." The catch? **100% of the funds bid are immediately routed to vetted crowdfunding campaigns for developing nations.**
 
-![Debug Contracts tab](https://github.com/scaffold-eth/scaffold-eth-2/assets/55535804/b237af0c-5027-4849-a5c1-2e31495cccb1)
+It transforms the human desire for visibility into a regenerative financial engine.
 
+### ✨ Key Features
+
+* **👑 King of the Hill Mechanic:** The highest bidder owns the billboard space until overridden.
+* **⚡ Instant Settlement:** Built on Celo for sub-cent gas fees and 5-second block times.
+* **🤝 100% ReFi:** The contract does not take a profit. All funds go directly to impact addresses.
+* **📱 Farcaster Native:** Designed as a Miniapp (Frame v2) for seamless mobile interaction within Warpcast.
+
+---
+
+## 🛠 How It Works
+
+1.  **View the Board:** Users open the Miniapp to see the current message and the "Price to Override."
+2.  **The Bidding:** A user writes their new message (e.g., a project shoutout, a meme, or a quote) and sends a transaction higher than the current value.
+3.  **The Override:** The smart contract accepts the funds, updates the state to the new message, and creates a `NewVoice` event.
+4.  **The Impact:** The funds are automatically transferred to the `BeneficiaryVault` (or split among registered NGOs).
 ## Requirements
 
 Before you begin, you need to install the following tools:
