@@ -13,7 +13,8 @@ It transforms the human desire for visibility into a regenerative financial engi
 
 ### ✨ Key Features
 
-* **👑 King of the Hill Mechanic:** The highest bidder owns the billboard space until overridden.
+* **🔤 Character-by-Character:** Each cell holds ONE character - buy multiple cells to spell words!
+* **👑 King of the Hill Mechanic:** The highest bidder owns each cell until overridden.
 * **⚡ Instant Settlement:** Built on Celo for sub-cent gas fees and 5-second block times.
 * **🤝 100% ReFi:** The contract does not take a profit. All funds go directly to impact addresses.
 * **📱 Farcaster Native:** Designed as a Miniapp (Frame v2) for seamless mobile interaction within Warpcast.
@@ -22,10 +23,11 @@ It transforms the human desire for visibility into a regenerative financial engi
 
 ## 🛠 How It Works
 
-1.  **View the Board:** Users open the Miniapp to see the current message and the "Price to Override."
-2.  **The Bidding:** A user writes their new message (e.g., a project shoutout, a meme, or a quote) and sends a transaction higher than the current value.
-3.  **The Override:** The smart contract accepts the funds, updates the state to the new message, and creates a `NewVoice` event.
-4.  **The Impact:** The funds are automatically transferred to the `BeneficiaryVault` (or split among registered NGOs).
+1.  **View the Board:** Users open the Miniapp to see the 10x10 grid of characters.
+2.  **The Bidding:** A user selects a cell, enters ONE character (automatically uppercased), and sends a transaction.
+3.  **Spell Words:** Buy multiple adjacent cells to spell out words, names, or messages across the grid!
+4.  **The Override:** To take someone's cell, you must pay at least 10% more than they did.
+5.  **The Impact:** All funds are locked in the contract vault on the Celo blockchain.
 ## Requirements
 
 Before you begin, you need to install the following tools:
@@ -75,26 +77,37 @@ Run smart contract test with `yarn hardhat:test`
 - Edit your frontend homepage at `packages/nextjs/app/page.tsx`. For guidance on [routing](https://nextjs.org/docs/app/building-your-application/routing/defining-routes) and configuring [pages/layouts](https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts) checkout the Next.js documentation.
 - Edit your deployment scripts in `packages/hardhat/deploy`
 
-## 💬 Message Vault - Interactive Grid Mini App
+## 💬 Message Vault - Interactive Character Grid
 
-This project includes a **Message Vault** - an on-chain interactive grid where users can buy cells and leave messages!
+This project includes a **Message Vault** - an on-chain interactive grid where users can buy cells and spell out messages!
 
 ### Features
 
 - **10x10 Grid (100 cells)** - All stored on-chain via smart contract
+- **One Character Per Cell** - Each cell holds a single uppercase character
+- **Spell Words** - Buy multiple adjacent cells to form words and messages
 - **Buy & Claim** - Purchase any empty cell for 0.001 CELO minimum
-- **Competitive Overwriting** - Overwrite others' messages by paying 10% more
-- **Price Escalation** - The more you pay, the harder it is for others to overwrite your message
+- **Competitive Overwriting** - Overwrite others' characters by paying 10% more
+- **Price Escalation** - The more you pay, the harder it is for others to overwrite your character
 - **Vault Storage** - All CELO is locked in the contract vault
-- **Farcaster Integration** - Share your claims directly to Farcaster
+- **Farcaster Integration** - Share your creations directly to Farcaster
+- **Mobile Optimized** - Large, readable characters perfect for mobile viewing
 
 ### Smart Contract
 
 The `MessageVault.sol` contract (`packages/hardhat/contracts/MessageVault.sol`) provides:
-- `buyCell(cellId, message)` - Buy or overwrite a grid cell
+
+**User Functions:**
+- `buyCell(cellId, message)` - Buy or overwrite a grid cell with a single character
 - `updateMessage(cellId, newMessage)` - Update your own cell for free
 - `getAllCells()` - Get all grid data
 - `getMinimumPrice(cellId)` - Calculate minimum price to buy a cell
+- `getVaultBalance()` - Check total CELO locked in vault
+
+**Owner Functions:**
+- `withdraw(amount, to)` - Withdraw specific amount to an address
+- `withdrawAll(to)` - Withdraw all funds to an address
+- `transferOwnership(newOwner)` - Transfer contract ownership
 
 ### Try it
 

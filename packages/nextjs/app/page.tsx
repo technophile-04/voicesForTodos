@@ -91,7 +91,7 @@ const Home: NextPage = () => {
             {/* Header */}
             <div className="text-center">
               <h1 className="text-4xl font-bold mb-3">💬 Message Vault Grid</h1>
-              <p className="text-lg opacity-70 mb-6">Buy a spot on the grid and leave your message!</p>
+              <p className="text-lg opacity-70 mb-6">Buy cells to spell out your message - one character at a time!</p>
               <div className="mt-4 flex justify-center gap-4 text-sm flex-wrap">
                 <div className="badge badge-lg badge-primary gap-2 shadow-md">
                   <span>💰</span>
@@ -127,14 +127,11 @@ const Home: NextPage = () => {
                         title={`Cell ${index}${hasMessage ? `\nMessage: ${cell.message}\nPrice: ${formatEther(price)} CELO` : "\nEmpty - Click to claim!"}`}
                       >
                         {/* Cell content */}
-                        <div className="flex flex-col h-full justify-between text-xs">
+                        <div className="flex flex-col h-full justify-center items-center">
                           {hasMessage ? (
-                            <>
-                              <div className="font-mono text-[10px] truncate font-bold">{cell.message}</div>
-                              <div className="text-[8px] opacity-60 truncate">{formatEther(price)} CELO</div>
-                            </>
+                            <div className="font-bold text-2xl uppercase leading-none">{cell.message}</div>
                           ) : (
-                            <div className="text-center text-[10px] opacity-40 font-bold">#{index}</div>
+                            <div className="text-center text-[8px] opacity-30">#{index}</div>
                           )}
                         </div>
                       </div>
@@ -160,9 +157,8 @@ const Home: NextPage = () => {
                 ></path>
               </svg>
               <span>
-                <strong>How it works:</strong> Click any cell to buy it with your message. To overwrite someone
-                else&apos;s message, you must pay at least 10% more than they did. The higher the price, the harder it
-                is to overwrite!
+                <strong>How it works:</strong> Each cell holds ONE character (automatically uppercased). Buy multiple
+                cells to spell words! To overwrite someone&apos;s character, pay at least 10% more than they did.
               </span>
             </div>
           </div>
@@ -183,8 +179,8 @@ const Home: NextPage = () => {
             {/* Current cell info */}
             {allCells?.[selectedCell] && allCells[selectedCell].message && (
               <div className="bg-base-200 p-4 rounded-lg mb-4 border border-base-300">
-                <p className="text-sm font-bold mb-2 text-base-content/70">Current Message:</p>
-                <p className="text-lg mb-3 font-semibold">&quot;{allCells[selectedCell].message}&quot;</p>
+                <p className="text-sm font-bold mb-2 text-base-content/70">Current Character:</p>
+                <p className="text-4xl mb-3 font-bold text-center uppercase">{allCells[selectedCell].message}</p>
                 <div className="divider my-2"></div>
                 <p className="text-sm opacity-70 mb-1">
                   Current Price: <span className="font-semibold">{formatEther(allCells[selectedCell].price)} CELO</span>
@@ -199,15 +195,17 @@ const Home: NextPage = () => {
             <div className="form-control gap-4">
               <div>
                 <label className="label">
-                  <span className="label-text font-bold">Your Message (max 100 chars)</span>
-                  <span className="label-text-alt">{newMessage.length}/100</span>
+                  <span className="label-text font-bold">Your Character (1 letter, number, or symbol)</span>
                 </label>
-                <textarea
-                  className="textarea textarea-bordered w-full h-24"
-                  placeholder="Enter your message..."
+                <input
+                  type="text"
+                  maxLength={1}
+                  className="input input-bordered w-full text-center text-4xl font-bold uppercase"
+                  placeholder="A"
                   value={newMessage}
-                  onChange={e => setNewMessage(e.target.value.slice(0, 100))}
+                  onChange={e => setNewMessage(e.target.value.toUpperCase().slice(0, 1))}
                 />
+                <p className="text-xs text-base-content/60 mt-2">💡 Tip: Buy multiple cells in a row to spell words!</p>
               </div>
 
               <div>

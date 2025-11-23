@@ -34,6 +34,7 @@ const deployMessageVault: DeployFunction = async function (hre: HardhatRuntimeEn
   // Get the deployed contract to interact with it after deploying.
   const messageVault = await hre.ethers.getContract<Contract>("MessageVault", deployer);
   console.log("📝 MessageVault deployed!");
+  console.log("👑 Owner:", await messageVault.owner());
   console.log("📊 Grid size:", await messageVault.GRID_WIDTH(), "x", await messageVault.GRID_HEIGHT());
   console.log("💰 Vault balance:", await messageVault.getVaultBalance());
 };
